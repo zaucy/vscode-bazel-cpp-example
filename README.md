@@ -7,4 +7,8 @@ This example has 2 useful scripts
 
 ## Autocomplete with clangd
 
+![vscode-autocomplete](https://user-images.githubusercontent.com/1284289/126412267-d1452de1-10ec-4a01-938a-0ea986ae007e.gif)
+
 ## Launch with debugger
+
+![vscode-launch](https://user-images.githubusercontent.com/1284289/126412279-bbb9ee59-6603-439a-b25a-519ecd584d0b.gif)
