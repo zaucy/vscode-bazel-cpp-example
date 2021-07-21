@@ -1,0 +1,20 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "//example_bin:example_bin (Windows)",
+			"type": "cppvsdbg",
+			"request": "launch",
+			"program": "__BAZEL_BIN__/example_bin/example_bin.exe",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"preLaunchTask": "build //example_bin:example_bin",
+			"sourceFileMap": {
+				"__EXEC_ROOT__/external": "__OUTPUT_BASE__/external",
+				"__EXEC_ROOT__": "__WORKSPACE__"
+			}
+		}
+  ]
+}

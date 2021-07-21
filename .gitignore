@@ -1,0 +1,6 @@
+/bazel-*
+/compile_commands.json
+/.vscode/*.json
+!/.vscode/tasks.json
+!/.vscode/settings.json
+

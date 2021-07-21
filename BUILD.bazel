@@ -1,0 +1,65 @@
+load("@bazel_compdb//:aspects.bzl", "compilation_database")
+load("@bzlws//:index.bzl", "bzlws_copy")
+
+package(default_visibility = ["//visibility:public"])
+
+platform(
+    name = "windows",
+    visibility = ["//:__subpackages__"],
+    constraint_values = [
+        "@platforms//cpu:x86_64",
+        "@platforms//os:windows",
+        "@bazel_tools//tools/cpp:clang-cl",
+    ],
+)
+
+platform(
+    name = "linux",
+    visibility = ["//:__subpackages__"],
+    constraint_values = [
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+        "@bazel_tools//tools/cpp:clang",
+    ],
+)
+
+compilation_database(
+    name = "compdb",
+    visibility = ["//visibility:private"],
+    testonly = True,
+    # Does not work with regular msvc compiler
+    disable = select({
+        "@bazel_tools//tools/cpp:msvc": True,
+        "//conditions:default": False,
+    }),
+    targets = [
+        # List out your binary targets you want to have compile_commands.json
+        # for in order to have autocomplete working correctly.
+        "//example_bin",
+    ],
+)
+
+bzlws_copy(
+    name = "copy_compile_commands",
+    visibility = ["//visibility:private"],
+    testonly = True,
+    out = "{FILENAME}",
+    srcs = [":compdb"],
+    substitutions = {
+        "@bzlws//info:execution_root": "__EXEC_ROOT__",
+    },
+)
+
+bzlws_copy(
+    name = "copy_vscode_config_files",
+    out = ".vscode/{BASENAME}.json",
+    srcs = [
+        "//.vscode:launch.json-tpl",
+    ],
+    substitutions = {
+        "@bzlws//info:execution_root": "__EXEC_ROOT__",
+        "@bzlws//info:bazel-bin": "__BAZEL_BIN__",
+        "@bzlws//info:workspace": "__WORKSPACE__",
+        "@bzlws//info:output_base": "__OUTPUT_BASE__",
+    },
+)

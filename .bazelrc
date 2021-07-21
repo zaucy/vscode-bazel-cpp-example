@@ -1,0 +1,18 @@
+build --enable_platform_specific_config
+
+build:windows --platforms=//:windows
+build:windows --extra_execution_platforms=//:windows
+build:windows --extra_toolchains=@local_config_cc//:cc-toolchain-x64_windows-clang-cl
+build:windows --compiler=clang-cl
+build:windows --cxxopt=-fcolor-diagnostics
+build:windows --cxxopt=-fansi-escape-codes
+build:windows --cxxopt=/D_HAS_DEPRECATED_RESULT_OF=1
+build:windows --cxxopt=-Xclang
+build:windows --cxxopt=-std=c++20
+build:windows --cxxopt=/Zc:__cplusplus
+
+build:linux --platforms=//:linux
+build:linux --extra_toolchains=@llvm_toolchain//:cc-toolchain-linux
+build:linux --cxxopt=-std=c++20
+build:linux --cxxopt=-stdlib=libstdc++
+build:linux --linkopt=-lstdc++

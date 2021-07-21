@@ -1,0 +1,8 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+    name = "example_bin",
+    visibility = ["//visibility:public"],
+    srcs = ["example.cc"],
+    deps = ["//example_lib"],
+)
