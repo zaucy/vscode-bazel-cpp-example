@@ -4,3 +4,5 @@
 !/.vscode/tasks.json
 !/.vscode/settings.json
 
+# MODULE.bazel.lock files historically haven't played nice with source control
+*.bazel.lock

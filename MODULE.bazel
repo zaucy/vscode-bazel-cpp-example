@@ -1,0 +1,33 @@
+"""
+This is an example bazel module
+"""
+
+module(
+    name = "example_module",
+    version = "0.1.0",
+    # only change the compatibility level if you make a breaking change
+    compatibility_level = 0,
+)
+
+bazel_dep(name = "rules_cc", version = "0.0.13")
+bazel_dep(name = "bzlws", version = "0.2.0")
+
+# These dependencies should be marked as a dev_dependency otherwise if another
+# module relies on this module they will implicitly have these dependencies as
+# well.
+bazel_dep(name = "toolchains_llvm", version = "1.2.0", dev_dependency = True)
+bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
+
+# hedron_compile_commands is not published to the BCR so you must use an override
+git_override(
+    module_name = "hedron_compile_commands",
+    commit = "4f28899228fb3ad0126897876f147ca15026151e",
+    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor.git",
+)
+
+# Setting up a toolchain is completely optional. If you don't setup a toolchain
+# the default toolchain will be used.
+llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm", dev_dependency = True)
+llvm.toolchain(llvm_version = "19.1.0")
+use_repo(llvm, "llvm_toolchain")
+register_toolchains("@llvm_toolchain//:all", dev_dependency = True)

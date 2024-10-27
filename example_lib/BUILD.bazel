@@ -1,8 +1,10 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//bazel:copts.bzl", "copts")
 
 cc_library(
     name = "example_lib",
     visibility = ["//visibility:public"],
+    copts = copts,
     hdrs = ["example.hh"],
     srcs = ["example.cc"],
 )

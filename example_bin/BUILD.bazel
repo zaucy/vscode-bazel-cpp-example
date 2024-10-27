@@ -1,8 +1,10 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("//bazel:copts.bzl", "copts")
 
 cc_binary(
     name = "example_bin",
     visibility = ["//visibility:public"],
+    copts = copts,
     srcs = ["example.cc"],
     deps = ["//example_lib"],
 )
