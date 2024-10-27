@@ -1,0 +1,2 @@
+# this is required for bzlws to work
+build --enable_runfiles
